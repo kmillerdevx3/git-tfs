@@ -1,4 +1,4 @@
-framework: net452
+framework: net471
 source https://www.nuget.org/api/v2/
 
 //If you plan to update this file, you must first absolutly read our documentation on the subject
