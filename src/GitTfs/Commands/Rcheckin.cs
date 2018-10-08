@@ -98,8 +98,8 @@ namespace GitTfs.Commands
                 }
             }
 
-            IEnumerable<GitCommit> commitsToCheckin = _globals.Repository.FindParentCommits(refToCheckin, parentChangeset.Remote.MaxCommitHash);
-            Trace.WriteLine("Commit to checkin count:" + commitsToCheckin.Count());
+            List<GitCommit> commitsToCheckin = _globals.Repository.FindParentCommits(refToCheckin, parentChangeset.Remote.MaxCommitHash).ToList();
+            Trace.WriteLine("Commit to checkin count:" + commitsToCheckin.Count);
             if (!commitsToCheckin.Any())
                 throw new GitTfsException("error: latest TFS commit should be parent of commits being checked in");
 
@@ -135,7 +135,10 @@ namespace GitTfs.Commands
                 Trace.TraceInformation("Starting checkin of {0} '{1}'", target.Substring(0, 8), commitSpecificCheckinOptions.CheckinComment);
                 try
                 {
-                    newChangesetId = tfsRemote.Checkin(target, currentParent, parentChangeset, commitSpecificCheckinOptions, tfsRepositoryPathOfMergedBranch);
+                    using (new DateTimeWrapper(commit.When))
+                    {
+                        newChangesetId = tfsRemote.Checkin(target, currentParent, parentChangeset, commitSpecificCheckinOptions, tfsRepositoryPathOfMergedBranch);
+                    }
                     var fetchResult = tfsRemote.FetchWithMerge(newChangesetId, false, parents.Select(c => c.Sha).ToArray());
                     if (fetchResult.NewChangesetCount != 1)
                     {

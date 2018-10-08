@@ -204,6 +204,7 @@
     <Compile Include="Util\CheckinOptionsExtensions.cs" />
     <Compile Include="Util\CamelCaseToDelimitedStringConverter.cs" />
     <Compile Include="Util\ConfigPropertyLoader.cs" />
+    <Compile Include="Util\DateTimeWrapper.cs" />
     <Compile Include="Util\ExportMetadatasInitializer.cs" />
     <Compile Include="Util\PathResolver.cs" />
     <Compile Include="Util\CheckinOptionsFactory.cs" />
