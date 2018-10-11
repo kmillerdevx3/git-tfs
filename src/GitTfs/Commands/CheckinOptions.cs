@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using NDesk.Options;
 using GitTfs.Util;
@@ -63,5 +64,7 @@ namespace GitTfs.Commands
         public Regex WorkItemAssociateRegex { get; set; }
         public bool IgnoreMissingItems { get; set; }
         public bool AddMissingItems { get; set; }
+
+        public DateTime? CheckinTimestamp { get; set; }
     }
 }

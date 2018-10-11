@@ -124,7 +124,7 @@ namespace GitTfs.Core
             var policyOverride = GetPolicyOverrides(options, checkinProblems.Result);
             try
             {
-                var newChangeset = _workspace.Checkin(pendingChanges, checkinComment, options.AuthorTfsUserId, checkinNote, workItemInfos, policyOverride, options.OverrideGatedCheckIn);
+                var newChangeset = _workspace.Checkin(pendingChanges, checkinComment, checkinNote, workItemInfos, policyOverride, options);
                 if (newChangeset == 0)
                 {
                     throw new GitTfsException("Checkin failed!");

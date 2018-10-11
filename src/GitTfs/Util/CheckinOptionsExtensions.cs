@@ -21,6 +21,7 @@ namespace GitTfs.Util
             clone.WorkItemsToAssociate.AddRange(source.WorkItemsToAssociate);
             clone.WorkItemsToResolve.AddRange(source.WorkItemsToResolve);
             clone.AuthorTfsUserId = source.AuthorTfsUserId;
+            clone.CheckinTimestamp = source.CheckinTimestamp;
             try
             {
                 string re = globals.Repository.GetConfig(GitTfsConstants.WorkItemAssociateRegexConfigKey);

@@ -135,10 +135,7 @@ namespace GitTfs.Commands
                 Trace.TraceInformation("Starting checkin of {0} '{1}'", target.Substring(0, 8), commitSpecificCheckinOptions.CheckinComment);
                 try
                 {
-                    using (new DateTimeWrapper(commit.When))
-                    {
-                        newChangesetId = tfsRemote.Checkin(target, currentParent, parentChangeset, commitSpecificCheckinOptions, tfsRepositoryPathOfMergedBranch);
-                    }
+                    newChangesetId = tfsRemote.Checkin(target, currentParent, parentChangeset, commitSpecificCheckinOptions, tfsRepositoryPathOfMergedBranch);
                     var fetchResult = tfsRemote.FetchWithMerge(newChangesetId, false, parents.Select(c => c.Sha).ToArray());
                     if (fetchResult.NewChangesetCount != 1)
                     {

@@ -512,8 +512,13 @@ namespace GitTfs.VsCommon
             }
         }
 
+        public int Checkin(IPendingChange[] changes, string comment, ICheckinNote checkinNote, IEnumerable<IWorkItemCheckinInfo> workItemChanges, TfsPolicyOverrideInfo policyOverrideInfo, Commands.CheckinOptions options)
+        {
+            return Checkin(changes, comment, options.AuthorTfsUserId, checkinNote, workItemChanges, policyOverrideInfo, options.OverrideGatedCheckIn, options.CheckinTimestamp);
+        }
+
         public int Checkin(IPendingChange[] changes, string comment, string author, ICheckinNote checkinNote, IEnumerable<IWorkItemCheckinInfo> workItemChanges,
-           TfsPolicyOverrideInfo policyOverrideInfo, bool overrideGatedCheckIn)
+           TfsPolicyOverrideInfo policyOverrideInfo, bool overrideGatedCheckIn, DateTime? commitTimestamp = null)
         {
             var checkinParameters = new WorkspaceCheckInParameters(_bridge.Unwrap<PendingChange>(changes), comment)
             {
@@ -525,6 +530,11 @@ namespace GitTfs.VsCommon
 
             if (author != null)
                 checkinParameters.Author = author;
+
+            if (commitTimestamp.HasValue)
+            {
+                checkinParameters.CheckinDate = commitTimestamp.Value;
+            }
 
             try
             {

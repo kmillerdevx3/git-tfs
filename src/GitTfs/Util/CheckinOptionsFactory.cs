@@ -42,6 +42,7 @@ namespace GitTfs.Util
             var customCheckinOptions = BuildCommitSpecificCheckinOptions(sourceCheckinOptions, commitMessage);
 
             customCheckinOptions.ProcessAuthor(commit, authors);
+            customCheckinOptions.CheckinTimestamp = commit.When.DateTime;
 
             return customCheckinOptions;
         }

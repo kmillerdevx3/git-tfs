@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using GitTfs.Commands;
 
 namespace GitTfs.Core.TfsInterop
 {
@@ -7,7 +9,9 @@ namespace GitTfs.Core.TfsInterop
         IPendingChange[] GetPendingChanges();
         ICheckinEvaluationResult EvaluateCheckin(TfsCheckinEvaluationOptions options, IPendingChange[] allChanges, IPendingChange[] changes, string comment, string author, ICheckinNote checkinNote, IEnumerable<IWorkItemCheckinInfo> workItemChanges);
         void Shelve(IShelveset shelveset, IPendingChange[] changes, TfsShelvingOptions options);
-        int Checkin(IPendingChange[] changes, string comment, string author, ICheckinNote checkinNote, IEnumerable<IWorkItemCheckinInfo> workItemChanges, TfsPolicyOverrideInfo policyOverrideInfo, bool overrideGatedCheckIn);
+
+        int Checkin(IPendingChange[] changes, string comment, ICheckinNote checkinNote, IEnumerable<IWorkItemCheckinInfo> workItemChanges, TfsPolicyOverrideInfo policyOverrideInfo, CheckinOptions options);
+        int Checkin(IPendingChange[] changes, string comment, string author, ICheckinNote checkinNote, IEnumerable<IWorkItemCheckinInfo> workItemChanges, TfsPolicyOverrideInfo policyOverrideInfo, bool overrideGatedCheckIn, DateTime? commitTimestamp = null);
         int PendAdd(string path);
         int PendEdit(string path);
         int PendDelete(string path);
